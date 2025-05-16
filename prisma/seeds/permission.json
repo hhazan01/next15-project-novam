@@ -1,0 +1,115 @@
+[
+  {
+    "id": "cm5k5nt3k0000tg2k2m2k377b",
+    "name": "All",
+    "key": "all"
+  },
+  {
+    "name": "Administrador",
+    "key": "adms"
+  },
+  {
+    "name": "Estructura",
+    "key": "strc"
+  },
+  {
+    "name": "Solicitudes",
+    "key": "sols"
+  },
+  {
+    "name": "Nueva solicitud",
+    "key": "sol.add"
+  },
+  {
+    "name": "Modificar solicitud",
+    "key": "sol.upd"
+  },
+  {
+    "name": "Cancelar solicitud",
+    "key": "sol.cald"
+  },
+  {
+    "name": "Convertir en Req/Proy",
+    "key": "sol.conv"
+  },
+  {
+    "name": "Ver aprobaciones",
+    "key": "appr.view"
+  },
+  {
+    "name": "Subir archivo",
+    "key": "file.load"
+  },
+  {
+    "name": "Descargar archivo",
+    "key": "file.down"
+  },
+  {
+    "name": "Eliminar archivo",
+    "key": "file.del"
+  },
+  {
+    "name": "Comentario funcional",
+    "key": "com.func"
+  },
+  {
+    "name": "Comentario libre",
+    "key": "com.free"
+  },
+  {
+    "name": "Req/Proy",
+    "key": "rqpj"
+  },
+  {
+    "name": "Modificar Req/Proy",
+    "key": "rqpj.upd"
+  },
+  {
+    "name": "Ver tareas",
+    "key": "raci"
+  },
+  {
+    "name": "Nueva tarea",
+    "key": "raci.add"
+  },
+  {
+    "name": "Modificar tarea",
+    "key": "raci.upd"
+  },
+  {
+    "name": "Eliminar tarea",
+    "key": "raci.del"
+  },
+  {
+    "name": "Ver participantes",
+    "key": "edo"
+  },
+  {
+    "name": "Agregar Unidad",
+    "key": "edo.add"
+  },
+  {
+    "name": "Eliminar Unidad",
+    "key": "edo.del"
+  },
+  {
+    "name": "Ver alcance",
+    "key": "wbs"
+  },
+  {
+    "name": "Nuevo alcance",
+    "key": "wbs.add"
+  },
+  {
+    "name": "Modificar alcance",
+    "key": "wbs.upd"
+  },
+  {
+    "name": "Eliminar alcance",
+    "key": "wbs.del"
+  },
+  {
+    "name": "Participante",
+    "key": "part"
+  }
+]
