@@ -33,8 +33,6 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const [showTwoFactor, setShowTwoFactor] = React.useState<boolean>(false);
-  const [success, setSuccess] = React.useState<string | undefined>("");
   const [error, setError] = React.useState<string | undefined>("");
   const [isPending, startTransition] = React.useTransition();
 
@@ -44,13 +42,7 @@ export function LoginForm({
         setError(undefined);
       }, 3000);
     }
-
-    if (success) {
-      setTimeout(() => {
-        setSuccess(undefined);
-      }, 3000);
-    }
-  }, [error, success]);
+  }, [error]);
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -63,15 +55,10 @@ export function LoginForm({
 
   const onSubmit = (data: z.infer<typeof SignInSchema>) => {
     setError(undefined);
-    setSuccess(undefined);
     startTransition(async () => {
       await SignIn(data).then((res) => {
         if (res?.error) {
           return setError(res.error);
-        }
-
-        if (res?.twoFactor) {
-          setShowTwoFactor(true);
         }
       });
     });
@@ -83,107 +70,60 @@ export function LoginForm({
         <CardContent className="grid p-0 md:grid-cols-2">
           <Form {...form}>
             <form className="p-6 md:p-8" onSubmit={form.handleSubmit(onSubmit)}>
-              {showTwoFactor && (
-                <div className="flex flex-col gap-6">
-                  <FormField
-                    control={form.control}
-                    name="code"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Contraseña de un solo uso</FormLabel>
-                        <FormControl>
-                          <InputOTP maxLength={6} {...field}>
-                            <InputOTPGroup>
-                              <InputOTPSlot index={0} />
-                              <InputOTPSlot index={1} />
-                              <InputOTPSlot index={2} />
-                              <InputOTPSlot index={3} />
-                              <InputOTPSlot index={4} />
-                              <InputOTPSlot index={5} />
-                            </InputOTPGroup>
-                          </InputOTP>
-                        </FormControl>
-                        <FormDescription>
-                          Ingrese la contraseña de un solo uso enviada a su
-                          correo.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Button
-                      type="button"
-                      variant={"secondary"}
-                      onClick={() => setShowTwoFactor(false)}
-                    >
-                      Volver atrás
-                    </Button>
-                    <Button type="submit" variant="default" className="w-full">
-                      Comprobar
-                    </Button>
-                  </div>
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col items-center text-center">
+                  <h1 className="text-2xl font-bold">Bienvenido de nuevo</h1>
+                  <p className="text-muted-foreground text-balance">NOVAM</p>
                 </div>
-              )}
-              {!showTwoFactor && (
-                <div className="flex flex-col gap-6">
-                  <div className="flex flex-col items-center text-center">
-                    <h1 className="text-2xl font-bold">Bienvenido de nuevo</h1>
-                    <p className="text-muted-foreground text-balance">NOVAM</p>
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor="email">
-                          Correo electrónico
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            type="email"
-                            placeholder="john.doe@movilnet.com.ve"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div className="flex items-center">
-                          <FormLabel>Contraseña</FormLabel>
-                          <Link
-                            href="/auth/reset"
-                            className="ml-auto text-xs underline-offset-2 hover:underline"
-                          >
-                            Olvidaste tu contraseña?
-                          </Link>
-                        </div>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            type="password"
-                            placeholder="*******"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormError message={error} />
-                  <FormSuccess message={success} />
-                  <Button type="submit" className="w-full">
-                    Iniciar sesión
-                  </Button>
-                </div>
-              )}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="email">Correo electrónico</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="email"
+                          placeholder="john.doe@movilnet.com.ve"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center">
+                        <FormLabel>Contraseña</FormLabel>
+                        <Link
+                          href="/auth/reset"
+                          className="ml-auto text-xs underline-offset-2 hover:underline"
+                        >
+                          Olvidaste tu contraseña?
+                        </Link>
+                      </div>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="*******"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormError message={error} />
+                <Button type="submit" className="w-full">
+                  Iniciar sesión
+                </Button>
+              </div>
             </form>
           </Form>
           <div className="bg-muted relative hidden md:block">

@@ -29,6 +29,7 @@ async function main() {
     "role.json",
     "rolePermission.json",
     "user.json",
+    "dealer.json",
   ];
 
   await deleteAllData(orderedFileNames);

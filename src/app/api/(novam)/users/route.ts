@@ -26,6 +26,7 @@ export async function GET() {
         status: true,
         roleId: true,
         isTwoFactorEnabled: true,
+        createdAt: true,
         Role: {
           select: {
             name: true,

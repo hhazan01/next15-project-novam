@@ -25,7 +25,7 @@ export default async function layout({
   return (
     <Providers>
       <SidebarProvider
-        style={{ "--sidebar-width": "16rem" } as React.CSSProperties}
+        style={{ "--sidebar-width": "18rem" } as React.CSSProperties}
       >
         <AppSidebar
           variant="floating"
@@ -44,11 +44,11 @@ export default async function layout({
               <NavActions session={session.user} />
             </div>
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-            <AccessControl permissions={session.user.permissions}>
+          <AccessControl permissions={session.user.permissions}>
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
               {children}
-            </AccessControl>
-          </main>
+            </div>
+          </AccessControl>
         </SidebarInset>
       </SidebarProvider>
     </Providers>

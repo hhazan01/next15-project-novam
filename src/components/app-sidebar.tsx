@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Command } from "lucide-react";
+import { Command, Settings } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavSecondary } from "@/components/nav-secondary";
@@ -24,8 +24,14 @@ const data = {
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [],
-  navSecondary: [],
   projects: [],
+  navSecondary: [
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
+    },
+  ],
 };
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {

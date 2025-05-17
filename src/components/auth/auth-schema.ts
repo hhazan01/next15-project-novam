@@ -11,14 +11,9 @@ export const SignInSchema = z.object({
 });
 
 export const ResetSchema = z.object({
-  email: z
-    .string()
-    .email({
-      message: "El correo electrónico es requerido",
-    })
-    .refine((val) => val.endsWith("@movilnet.com.ve"), {
-      message: "El correo debe ser institucional (@movilnet.com.ve)",
-    }),
+  email: z.string().email({
+    message: "El correo electrónico es requerido",
+  }),
 });
 
 export const NewPassowrdSchema = z.object({

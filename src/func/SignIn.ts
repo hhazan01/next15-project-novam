@@ -31,60 +31,6 @@ export default async function SignIn(values: z.infer<typeof SignInSchema>) {
     return { error: "Usuario inactivo!" };
   }
 
-  if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      existingUser.email
-    );
-
-    await sendVerificationEmail(
-      existingUser.name,
-      verificationToken.email,
-      verificationToken.token
-    );
-
-    return { success: "¡Correo electrónico de confirmación enviado!" };
-  }
-
-  if (existingUser.isTwoFactorEnabled && existingUser.email) {
-    if (code) {
-      const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email);
-
-      if (!twoFactorToken) return { error: "¡Código inválido!" };
-
-      if (twoFactorToken.token !== code) return { error: "¡Código inválido!" };
-
-      const hasExpired = new Date(twoFactorToken.expires) < new Date();
-
-      if (hasExpired) return { error: "¡Código expirado!" };
-
-      await prisma.twoFactorToken.delete({
-        where: { id: twoFactorToken.id },
-      });
-
-      const existingConfirmation = await getTwoFactorConfirmationByUserId(
-        existingUser.id
-      );
-
-      if (existingConfirmation) {
-        await prisma.twoFactorConfirmation.delete({
-          where: { id: existingConfirmation.id },
-        });
-      }
-
-      await prisma.twoFactorConfirmation.create({
-        data: { userId: existingUser.id },
-      });
-    } else {
-      const twoFactorToken = await generateTwoFactorToken(existingUser.email);
-      await sendTwoFactorTokenEmail(
-        existingUser.name,
-        twoFactorToken.email,
-        twoFactorToken.token
-      );
-      return { twoFactor: true };
-    }
-  }
-
   try {
     await signIn("credentials", {
       email,
